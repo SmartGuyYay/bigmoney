@@ -2,43 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Royal Space Lottery of Zimbabwe</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(black, gold);
+      background: linear-gradient(to bottom, black, gold);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: white;
       text-align: center;
     }
 
     .container {
-      padding: 30px 20px;
-      max-width: 500px;
+      padding: 24px 16px;
+      max-width: 480px;
       margin: auto;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 16px;
+      box-shadow: 0 0 20px gold;
     }
 
     h1 {
-      font-size: 2.5em;
+      font-size: 2.2em;
       color: gold;
       text-shadow: 2px 2px red;
-      margin-bottom: 10px;
+      margin-bottom: 0.4em;
     }
 
     img {
       width: 100%;
-      max-width: 220px;
+      max-width: 180px;
       border-radius: 50%;
-      margin: 20px auto;
+      margin: 16px auto;
       display: block;
-      border: 5px solid purple;
+      border: 4px solid purple;
     }
 
     p {
-      font-size: 1.1em;
+      font-size: 1em;
       margin: 10px 0;
+      padding: 0 10px;
     }
 
     form input, form button {
@@ -61,6 +65,7 @@
       color: white;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.2s ease;
     }
 
     form button:hover {
@@ -68,32 +73,42 @@
     }
 
     .timer {
-      font-size: 1.3em;
+      font-size: 1.2em;
       color: red;
       margin: 20px 0;
     }
 
     .footer {
-      margin-top: 30px;
-      font-size: 0.9em;
+      margin-top: 24px;
+      font-size: 0.85em;
       color: lightgray;
+      padding: 0 12px;
     }
 
-    @media (max-width: 480px) {
-      h1 { font-size: 2em; }
-      .timer { font-size: 1.1em; }
+    @media (max-width: 360px) {
+      h1 {
+        font-size: 1.8em;
+      }
+
+      .timer {
+        font-size: 1em;
+      }
+
+      p, .footer {
+        font-size: 0.95em;
+      }
     }
   </style>
 </head>
 <body onload="startCountdown();">
 
-  <!-- Sounds -->
+  <!-- Audio -->
   <audio id="introSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2aee2ff7a4.mp3?filename=epic-orchestra-logo-11267.mp3" preload="auto"></audio>
-  <audio id="kaching" src="cha-ching.mp3" preload="auto"></audio>
+  <audio id="kaching" src="https://cdn.pixabay.com/download/audio/2021/11/09/audio_5cf8cbdabe.mp3?filename=cash-register-01a-93936.mp3" preload="auto"></audio>
 
   <div class="container">
     <h1>👑 YOU ARE CHOSEN 👑</h1>
-    <img src="https://www.shutterstock.com/image-vector/little-kid-wearing-prince-costume-260nw-2350644797.jpg" alt="Prince Jambalaya Wiggletush IV">
+    <img src="https://static.vecteezy.com/system/resources/previews/004/711/928/non_2x/zimbabwe-square-national-flag-vector.jpg" alt="Prince Jambalaya Wiggletush IV" />
     <p><strong>Prince Dr. Sir Jambalaya Wiggletush IV</strong> has selected you to receive $7,000,000 from the Royal Space Lottery of Zimbabwe 🚀💸</p>
 
     <div class="timer">
@@ -101,10 +116,10 @@
     </div>
 
     <form onsubmit="event.preventDefault(); playKaChing();">
-      <input type="text" placeholder="Full Real Name" required>
-      <input type="text" placeholder="Bank Account Number" required>
-      <input type="password" placeholder="Secret Code of Destiny (PIN)" required>
-      <input type="text" placeholder="Favourite Pokémon" required>
+      <input type="text" placeholder="Full Real Name" required />
+      <input type="text" placeholder="Bank Account Number" required />
+      <input type="password" placeholder="Secret Code of Destiny (PIN)" required />
+      <input type="text" placeholder="Favourite Pokémon" required />
       <button type="submit">REDEEM MY GALACTIC TREASURE 💰</button>
     </form>
 
@@ -112,7 +127,6 @@
   </div>
 
   <script>
-    // Countdown timer
     let timeLeft = 180;
     function startCountdown() {
       const timer = document.getElementById('countdown');
@@ -124,24 +138,22 @@
         timer.textContent = `${minutes}:${seconds}`;
       }, 1000);
 
-      // Try to autoplay the intro (some browsers block it unless user interacts)
       const intro = document.getElementById('introSound');
       intro.volume = 0.5;
       intro.play().catch(() => {
-        // do nothing if blocked
+        // ignore autoplay blocks
       });
     }
 
-    // Play ka-ching and show alert
     function playKaChing() {
       const sound = document.getElementById('kaching');
       sound.currentTime = 0;
       sound.play().then(() => {
         setTimeout(() => {
           alert('🎉 KA-CHING! You have been scammed. 🎉');
-        }, 200); // let the sound hit first
+        }, 200);
       }).catch(() => {
-        alert('🎉 You have been scammed. (but no ka-ching 💔)');
+        alert('🎉 You have been scammed. (but your browser blocked the sound 💀)');
       });
     }
   </script>
