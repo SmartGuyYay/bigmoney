@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Royal Space Lottery of Zimbabwe</title>
+  <style>
+    body {
+      background: linear-gradient(black, gold);
+      color: white;
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: gold;
+      text-shadow: 3px 3px red;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      border: 5px solid gold;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 40px gold;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    img {
+      width: 200px;
+      border-radius: 50%;
+      margin: 20px 0;
+      border: 5px solid purple;
+    }
+
+    input, button {
+      margin: 10px;
+      padding: 15px;
+      width: 80%;
+      font-size: 1em;
+      border-radius: 10px;
+      border: none;
+    }
+
+    button {
+      background: green;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: darkgreen;
+    }
+
+    .timer {
+      font-size: 1.5em;
+      color: red;
+      margin-top: 20px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: lightgray;
+    }
+  </style>
+</head>
+<body onload="startCountdown(); document.getElementById('introSound').play();">
+  <audio id="introSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2aee2ff7a4.mp3?filename=epic-orchestra-logo-11267.mp3" autoplay></audio>
+  <audio id="kaching" src="https://cdn.pixabay.com/download/audio/2021/11/09/audio_5cf8cbdabe.mp3?filename=cash-register-01a-93936.mp3"></audio>
+
+  <div class="container">
+    <h1>👑 YOU ARE CHOSEN 👑</h1>
+    <img src="https://i.imgur.com/AZJgIv3.png" alt="Prince Jambalaya Wiggletush IV">
+    <p><strong>Prince Dr. Sir Jambalaya Wiggletush IV</strong> personally selected you to receive $7,000,000 from the Royal Space Lottery of Zimbabwe 🚀💸</p>
+
+    <div class="timer">
+      ⏰ Time Left to Claim: <span id="countdown">03:00</span>
+    </div>
+
+    <form onsubmit="event.preventDefault(); document.getElementById('kaching').play(); alert('🎉 KA-CHING! You are now fake rich. 🎉');">
+      <input type="text" placeholder="Full Real Name" required><br>
+      <input type="text" placeholder="Bank Account Number" required><br>
+      <input type="password" placeholder="Secret Code of Destiny (PIN)" required><br>
+      <input type="text" placeholder="Favourite Pokémon" required><br>
+      <button type="submit">REDEEM MY GALACTIC TREASURE 💰</button>
+    </form>
+
+    <p class="footer">⚠️ Don’t tell anyone or the Martian Tax Office will come 🛸</p>
+  </div>
+
+  <script>
+    let timeLeft = 180;
+    function startCountdown() {
+      const timer = document.getElementById('countdown');
+      setInterval(() => {
+        if (timeLeft <= 0) return;
+        timeLeft--;
+        const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+        const seconds = String(timeLeft % 60).padStart(2, '0');
+        timer.textContent = `${minutes}:${seconds}`;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
