@@ -2,63 +2,75 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Royal Space Lottery of Zimbabwe</title>
   <style>
     body {
+      margin: 0;
+      padding: 0;
       background: linear-gradient(black, gold);
-      color: white;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
       text-align: center;
-      padding: 40px;
-    }
-
-    h1 {
-      font-size: 3em;
-      color: gold;
-      text-shadow: 3px 3px red;
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.1);
-      border: 5px solid gold;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 40px gold;
-      max-width: 600px;
+      padding: 30px 20px;
+      max-width: 500px;
       margin: auto;
     }
 
+    h1 {
+      font-size: 2.5em;
+      color: gold;
+      text-shadow: 2px 2px red;
+      margin-bottom: 10px;
+    }
+
     img {
-      width: 200px;
+      width: 100%;
+      max-width: 220px;
       border-radius: 50%;
-      margin: 20px 0;
+      margin: 20px auto;
+      display: block;
       border: 5px solid purple;
     }
 
-    input, button {
-      margin: 10px;
-      padding: 15px;
-      width: 80%;
+    p {
+      font-size: 1.1em;
+      margin: 10px 0;
+    }
+
+    form input, form button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 14px;
       font-size: 1em;
       border-radius: 10px;
       border: none;
     }
 
-    button {
-      background: green;
+    form input {
+      background: #fff;
+      color: #000;
+    }
+
+    form button {
+      background-color: green;
       color: white;
       font-weight: bold;
       cursor: pointer;
     }
 
-    button:hover {
-      background: darkgreen;
+    form button:hover {
+      background-color: darkgreen;
     }
 
     .timer {
-      font-size: 1.5em;
+      font-size: 1.3em;
       color: red;
-      margin-top: 20px;
+      margin: 20px 0;
     }
 
     .footer {
@@ -66,26 +78,33 @@
       font-size: 0.9em;
       color: lightgray;
     }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2em; }
+      .timer { font-size: 1.1em; }
+    }
   </style>
 </head>
-<body onload="startCountdown(); document.getElementById('introSound').play();">
-  <audio id="introSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2aee2ff7a4.mp3?filename=epic-orchestra-logo-11267.mp3" autoplay></audio>
-  <audio id="kaching" src="https://cdn.pixabay.com/download/audio/2021/11/09/audio_5cf8cbdabe.mp3?filename=cash-register-01a-93936.mp3"></audio>
+<body onload="startCountdown();">
+
+  <!-- Sounds -->
+  <audio id="introSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2aee2ff7a4.mp3?filename=epic-orchestra-logo-11267.mp3" preload="auto"></audio>
+  <audio id="kaching" src="https://cdn.pixabay.com/download/audio/2021/11/09/audio_5cf8cbdabe.mp3?filename=cash-register-01a-93936.mp3" preload="auto"></audio>
 
   <div class="container">
     <h1>👑 YOU ARE CHOSEN 👑</h1>
     <img src="https://www.shutterstock.com/image-vector/little-kid-wearing-prince-costume-260nw-2350644797.jpg" alt="Prince Jambalaya Wiggletush IV">
-    <p><strong>Prince Dr. Sir Jambalaya Wiggletush IV</strong> personally selected you to receive $7,000,000 from the Royal Space Lottery of Zimbabwe 🚀💸</p>
+    <p><strong>Prince Dr. Sir Jambalaya Wiggletush IV</strong> has selected you to receive $7,000,000 from the Royal Space Lottery of Zimbabwe 🚀💸</p>
 
     <div class="timer">
       ⏰ Time Left to Claim: <span id="countdown">03:00</span>
     </div>
 
-    <form onsubmit="event.preventDefault(); document.getElementById('kaching').play(); alert('🎉 KA-CHING! You are now fake rich. 🎉');">
-      <input type="text" placeholder="Full Real Name" required><br>
-      <input type="text" placeholder="Bank Account Number" required><br>
-      <input type="password" placeholder="Secret Code of Destiny (PIN)" required><br>
-      <input type="text" placeholder="Favourite Pokémon" required><br>
+    <form onsubmit="event.preventDefault(); playKaChing();">
+      <input type="text" placeholder="Full Real Name" required>
+      <input type="text" placeholder="Bank Account Number" required>
+      <input type="password" placeholder="Secret Code of Destiny (PIN)" required>
+      <input type="text" placeholder="Favourite Pokémon" required>
       <button type="submit">REDEEM MY GALACTIC TREASURE 💰</button>
     </form>
 
@@ -93,6 +112,7 @@
   </div>
 
   <script>
+    // Countdown timer
     let timeLeft = 180;
     function startCountdown() {
       const timer = document.getElementById('countdown');
@@ -103,6 +123,26 @@
         const seconds = String(timeLeft % 60).padStart(2, '0');
         timer.textContent = `${minutes}:${seconds}`;
       }, 1000);
+
+      // Try to autoplay the intro (some browsers block it unless user interacts)
+      const intro = document.getElementById('introSound');
+      intro.volume = 0.5;
+      intro.play().catch(() => {
+        // do nothing if blocked
+      });
+    }
+
+    // Play ka-ching and show alert
+    function playKaChing() {
+      const sound = document.getElementById('kaching');
+      sound.currentTime = 0;
+      sound.play().then(() => {
+        setTimeout(() => {
+          alert('🎉 KA-CHING! You have been scammed. 🎉');
+        }, 200); // let the sound hit first
+      }).catch(() => {
+        alert('🎉 You have been scammed. (but no ka-ching 💔)');
+      });
     }
   </script>
 </body>
